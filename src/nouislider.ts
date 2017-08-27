@@ -1,20 +1,18 @@
-import * as noUiSlider from 'nouislider';
+import { isPlatformServer } from '@angular/common';
 import {
   Component,
   ElementRef,
   EventEmitter,
   forwardRef,
+  getPlatform,
   Input,
-  OnInit,
   OnChanges,
+  OnInit,
   Output,
   NgModule,
 } from '@angular/core';
-import {
-  ControlValueAccessor,
-  FormControl,
-  NG_VALUE_ACCESSOR
-} from '@angular/forms';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import * as noUiSlider from 'nouislider';
 
 export interface NouiFormatter {
   to(value: number): string;
@@ -85,6 +83,11 @@ export class NouisliderComponent implements ControlValueAccessor, OnInit, OnChan
   constructor(private el: ElementRef) { }
 
   ngOnInit(): void {
+    // do nothing if server environment
+    if (isPlatformServer(getPlatform())) {
+      return;
+    }
+
     let inputsConfig = JSON.parse(JSON.stringify({
       behaviour: this.behaviour,
       connect: this.connect,
@@ -245,7 +248,6 @@ export class NouisliderComponent implements ControlValueAccessor, OnInit, OnChan
     this.slider.set(newValue);
   }
 }
-
 
 @NgModule({
   imports: [],

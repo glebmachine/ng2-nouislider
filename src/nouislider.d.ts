@@ -1,4 +1,4 @@
-import { ElementRef, EventEmitter, OnInit, OnChanges } from '@angular/core';
+import { ElementRef, EventEmitter, OnChanges, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormControl } from '@angular/forms';
 export interface NouiFormatter {
     to(value: number): string;
